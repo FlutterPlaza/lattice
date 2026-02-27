@@ -1,0 +1,21 @@
+name: lattice_server_serverpod
+description: Serverpod integration for the Lattice post-quantum Signal protocol server.
+version: 0.1.0
+publish_to: none
+repository: https://github.com/flutterplaza/lattice/tree/main/packages/lattice_server_serverpod
+
+environment:
+  sdk: ^3.7.0
+
+resolution: workspace
+
+dependencies:
+  lattice_crypto:
+    path: ../lattice_crypto
+  lattice_protocol:
+    path: ../lattice_protocol
+  meta: ^1.16.0
+
+dev_dependencies:
+  lints: ^5.1.1
+  test: ^1.25.8

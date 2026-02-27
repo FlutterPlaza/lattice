@@ -1,0 +1,44 @@
+# Dart
+.dart_tool/
+.packages
+build/
+pubspec.lock
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated
+*.g.dart
+*.freezed.dart
+
+# Coverage
+coverage/
+lcov.info
+
+# FFI build artifacts
+*.so
+*.dylib
+*.dll
+*.o
+*.a
+
+# Deploy config
+.lattice/
+
+# Environment
+.env
+.env.*
+
+# Docker
+docker-compose.override.yml
+
+# Melos
+.melos/

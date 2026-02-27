@@ -1,0 +1,22 @@
+name: lattice_client
+description: Flutter client SDK for the Lattice post-quantum Signal protocol.
+version: 0.1.0
+publish_to: none
+repository: https://github.com/flutterplaza/lattice/tree/main/packages/lattice_client
+
+environment:
+  sdk: ^3.7.0
+
+resolution: workspace
+
+dependencies:
+  lattice_crypto:
+    path: ../lattice_crypto
+  lattice_protocol:
+    path: ../lattice_protocol
+  http: ^1.3.0
+  meta: ^1.16.0
+
+dev_dependencies:
+  lints: ^5.1.1
+  test: ^1.25.8

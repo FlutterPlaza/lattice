@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - run: dart format --set-exit-if-changed .
+
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - run: dart pub get
+      - run: dart analyze --fatal-infos
+
+  test:
+    needs: [format, analyze]
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - run: dart pub get
+      - name: Test lattice_crypto
+        run: dart test --reporter=github
+        working-directory: packages/lattice_crypto
+      - name: Test lattice_protocol
+        run: dart test --reporter=github
+        working-directory: packages/lattice_protocol
+      - name: Test lattice_server
+        run: dart test --reporter=github
+        working-directory: packages/lattice_server
+      - name: Test lattice_client
+        run: dart test --reporter=github
+        working-directory: packages/lattice_client
+      - name: Test deploy tool
+        run: dart test --reporter=github
+        working-directory: tools/deploy
+      - name: Test monitor tool
+        run: dart test --reporter=github
+        working-directory: tools/monitor
+      - name: Test Firebase integration
+        run: dart test --reporter=github
+        working-directory: packages/lattice_server_firebase
+      - name: Test Serverpod integration
+        run: dart test --reporter=github
+        working-directory: packages/lattice_server_serverpod
+      - name: Test Supabase integration
+        run: dart test --reporter=github
+        working-directory: packages/lattice_server_supabase

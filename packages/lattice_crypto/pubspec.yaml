@@ -1,0 +1,18 @@
+name: lattice_crypto
+description: Post-quantum cryptographic primitives for the Lattice Signal protocol. KEM (ML-KEM/Kyber), SIG (ML-DSA/Dilithium), PRF, and randomness extraction.
+version: 0.1.0
+repository: https://github.com/flutterplaza/lattice/tree/main/packages/lattice_crypto
+
+environment:
+  sdk: ^3.7.0
+
+resolution: workspace
+
+dependencies:
+  crypto: ^3.0.6
+  ffi: ^2.1.4
+  meta: ^1.16.0
+
+dev_dependencies:
+  lints: ^5.1.1
+  test: ^1.25.8

@@ -1,0 +1,51 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+      target:
+        description: 'Deployment target'
+        required: true
+        default: 'local'
+        type: choice
+        options:
+          - local
+          - aws
+          - azure
+          - gcp
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - run: dart pub get
+      - run: dart analyze --fatal-infos
+      - name: Run tests
+        run: |
+          dart test packages/lattice_crypto/test/
+          dart test packages/lattice_protocol/test/
+          dart test packages/lattice_server/test/
+
+      - name: Build Docker image
+        run: |
+          docker build -t lattice-server:${{ github.sha }} -f packages/lattice_server/Dockerfile .
+
+      - name: Smoke test
+        run: |
+          docker run -d --name lattice-test -p 8080:8080 lattice-server:${{ github.sha }}
+          sleep 5
+          curl -f http://localhost:8080/api/v1/health || exit 1
+          docker stop lattice-test
+          docker rm lattice-test

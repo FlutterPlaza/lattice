@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 680" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4a90d9"/>
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2ea44f"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="720" height="680" rx="12" fill="#f8f9fb" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Title -->
+  <text x="360" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1b1f24">SC-AKE Protocol Flow</text>
+  <text x="360" y="56" text-anchor="middle" font-size="12" fill="#57606a">Post-Quantum Signal Handshake (Hashimoto et al. PQC 2022)</text>
+
+  <!-- Actors -->
+  <!-- Alice -->
+  <rect x="60" y="76" width="120" height="40" rx="8" fill="#dbeafe" stroke="#4a90d9" stroke-width="1.5"/>
+  <text x="120" y="101" text-anchor="middle" font-size="14" font-weight="600" fill="#1e40af">Alice</text>
+
+  <!-- Server -->
+  <rect x="300" y="76" width="120" height="40" rx="8" fill="#e5e7eb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="360" y="101" text-anchor="middle" font-size="14" font-weight="600" fill="#374151">Server</text>
+
+  <!-- Bob -->
+  <rect x="540" y="76" width="120" height="40" rx="8" fill="#dcfce7" stroke="#2ea44f" stroke-width="1.5"/>
+  <text x="600" y="101" text-anchor="middle" font-size="14" font-weight="600" fill="#166534">Bob</text>
+
+  <!-- Lifelines -->
+  <line x1="120" y1="116" x2="120" y2="650" stroke="#4a90d9" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.4"/>
+  <line x1="360" y1="116" x2="360" y2="650" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.4"/>
+  <line x1="600" y1="116" x2="600" y2="650" stroke="#2ea44f" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.4"/>
+
+  <!-- Phase 1: Registration -->
+  <rect x="20" y="130" width="680" height="2" fill="#d0d7de"/>
+  <text x="40" y="155" font-size="11" font-weight="600" fill="#8b949e" text-transform="uppercase" letter-spacing="1">PHASE 1: REGISTRATION</text>
+
+  <!-- Alice keygen -->
+  <rect x="30" y="168" width="180" height="44" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="185" text-anchor="middle" font-size="10" fill="#57606a">KEM.KeyGen -> (ek, dk)</text>
+  <text x="120" y="200" text-anchor="middle" font-size="10" fill="#57606a">SIG.KeyGen -> (vk, sk)</text>
+
+  <!-- Alice -> Server: register -->
+  <line x1="120" y1="224" x2="348" y2="224" stroke="#4a90d9" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <text x="234" y="218" text-anchor="middle" font-size="10" font-weight="500" fill="#4a90d9">POST /register {userId, lpk}</text>
+
+  <!-- Phase 2: Pre-key Upload -->
+  <rect x="20" y="248" width="680" height="2" fill="#d0d7de"/>
+  <text x="40" y="273" font-size="11" font-weight="600" fill="#8b949e">PHASE 2: PRE-KEY UPLOAD</text>
+
+  <!-- Alice generates pre-key -->
+  <rect x="30" y="286" width="180" height="44" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="303" text-anchor="middle" font-size="10" fill="#57606a">wKEM.KeyGen -> (ekT, dkT)</text>
+  <text x="120" y="318" text-anchor="middle" font-size="10" fill="#57606a">SIG.Sign(sk, ekT) -> sigma</text>
+
+  <!-- Alice -> Server: upload prekey -->
+  <line x1="120" y1="342" x2="348" y2="342" stroke="#4a90d9" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <text x="234" y="336" text-anchor="middle" font-size="10" font-weight="500" fill="#4a90d9">POST /prekeys {bundle}</text>
+
+  <!-- Phase 3: Session Creation (Bob) -->
+  <rect x="20" y="366" width="680" height="2" fill="#d0d7de"/>
+  <text x="40" y="391" font-size="11" font-weight="600" fill="#8b949e">PHASE 3: SESSION CREATION (BOB)</text>
+
+  <!-- Bob -> Server: fetch prekey -->
+  <line x1="600" y1="408" x2="372" y2="408" stroke="#2ea44f" stroke-width="1.5" marker-end="url(#arrowhead-green)"/>
+  <text x="486" y="402" text-anchor="middle" font-size="10" font-weight="500" fill="#2ea44f">GET /prekeys/alice</text>
+
+  <!-- Server -> Bob: prekey bundle -->
+  <line x1="360" y1="426" x2="588" y2="426" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <text x="474" y="420" text-anchor="middle" font-size="10" font-weight="500" fill="#6b7280">{lpkA, ekT, sigma}</text>
+
+  <!-- Bob computes -->
+  <rect x="510" y="440" width="180" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="600" y="457" text-anchor="middle" font-size="10" fill="#57606a">1. Verify sigma on ekT</text>
+  <text x="600" y="472" text-anchor="middle" font-size="10" fill="#57606a">2. (K,C)=Encap(ek); (KT,CT)=Encap(ekT)</text>
+  <text x="600" y="487" text-anchor="middle" font-size="10" fill="#57606a">3. K1=Ext(K); K2=Ext(KT)</text>
+  <text x="600" y="502" text-anchor="middle" font-size="10" fill="#57606a">4. kB||k~ = F_K1(sid) XOR F_K2(sid)</text>
+  <text x="600" y="517" text-anchor="middle" font-size="9" fill="#57606a">5. c = Sign(skB,sid) XOR k~</text>
+
+  <!-- Bob -> Server: send message -->
+  <line x1="600" y1="532" x2="372" y2="532" stroke="#2ea44f" stroke-width="1.5" marker-end="url(#arrowhead-green)"/>
+  <text x="486" y="526" text-anchor="middle" font-size="10" font-weight="500" fill="#2ea44f">POST /messages/alice {C,CT,c}</text>
+
+  <!-- Phase 4: Session Finalization (Alice) -->
+  <rect x="20" y="552" width="680" height="2" fill="#d0d7de"/>
+  <text x="40" y="577" font-size="11" font-weight="600" fill="#8b949e">PHASE 4: SESSION FINALIZATION (ALICE)</text>
+
+  <!-- Alice -> Server: fetch messages -->
+  <line x1="120" y1="592" x2="348" y2="592" stroke="#4a90d9" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <text x="234" y="586" text-anchor="middle" font-size="10" font-weight="500" fill="#4a90d9">GET /messages/alice</text>
+
+  <!-- Server -> Alice: messages -->
+  <line x1="360" y1="608" x2="132" y2="608" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <text x="246" y="602" text-anchor="middle" font-size="10" font-weight="500" fill="#6b7280">{C, CT, c}</text>
+
+  <!-- Alice computes -->
+  <rect x="30" y="618" width="180" height="28" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="636" text-anchor="middle" font-size="10" fill="#57606a">Decap, Ext, PRF, Verify -> kA</text>
+
+  <!-- Result -->
+  <rect x="230" y="654" width="260" height="22" rx="6" fill="#dcfce7" stroke="#2ea44f" stroke-width="1"/>
+  <text x="360" y="669" text-anchor="middle" font-size="11" font-weight="600" fill="#166534">kA == kB (Session Established)</text>
+</svg>

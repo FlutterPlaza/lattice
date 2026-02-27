@@ -1,0 +1,39 @@
+name: lattice_workspace
+publish_to: none
+
+environment:
+  sdk: ^3.7.0
+
+workspace:
+  - packages/lattice_crypto
+  - packages/lattice_protocol
+  - packages/lattice_server
+  - packages/lattice_server_serverpod
+  - packages/lattice_server_supabase
+  - packages/lattice_server_firebase
+  - packages/lattice_client
+  - tools/deploy
+  - tools/monitor
+
+dependencies:
+  lattice_crypto:
+    path: packages/lattice_crypto
+  lattice_protocol:
+    path: packages/lattice_protocol
+  lattice_server:
+    path: packages/lattice_server
+  lattice_server_firebase:
+    path: packages/lattice_server_firebase
+  lattice_server_serverpod:
+    path: packages/lattice_server_serverpod
+  lattice_server_supabase:
+    path: packages/lattice_server_supabase
+  lattice_deploy:
+    path: tools/deploy
+  lattice_monitor:
+    path: tools/monitor
+  http: ^1.3.0
+
+dev_dependencies:
+  lints: ^5.1.1
+  test: ^1.25.8
