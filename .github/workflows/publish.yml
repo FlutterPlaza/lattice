@@ -31,3 +31,27 @@ jobs:
       - name: Publish lattice_crypto
         run: dart pub publish --force
         working-directory: packages/lattice_crypto
+      - name: Publish lattice_protocol
+        run: dart pub publish --force
+        working-directory: packages/lattice_protocol
+      - name: Publish lattice_server
+        run: dart pub publish --force
+        working-directory: packages/lattice_server
+      - name: Publish lattice_client
+        run: dart pub publish --force
+        working-directory: packages/lattice_client
+      - name: Publish lattice_server_firebase
+        run: dart pub publish --force
+        working-directory: packages/lattice_server_firebase
+      - name: Publish lattice_server_serverpod
+        run: dart pub publish --force
+        working-directory: packages/lattice_server_serverpod
+      - name: Publish lattice_server_supabase
+        run: dart pub publish --force
+        working-directory: packages/lattice_server_supabase
+      - name: Publish lattice_deploy
+        run: dart pub publish --force
+        working-directory: tools/deploy
+      - name: Publish lattice_monitor
+        run: dart pub publish --force
+        working-directory: tools/monitor

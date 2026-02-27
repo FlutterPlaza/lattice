@@ -1,7 +1,6 @@
 name: lattice_server_firebase
 description: Firebase Cloud Run deployment support for the Lattice post-quantum Signal protocol server.
 version: 0.1.0
-publish_to: none
 repository: https://github.com/flutterplaza/lattice/tree/main/packages/lattice_server_firebase
 
 environment:
@@ -10,10 +9,8 @@ environment:
 resolution: workspace
 
 dependencies:
-  lattice_crypto:
-    path: ../lattice_crypto
-  lattice_protocol:
-    path: ../lattice_protocol
+  lattice_crypto: ^0.1.0
+  lattice_protocol: ^0.1.0
   meta: ^1.16.0
   yaml: ^3.1.3
   path: ^1.9.1

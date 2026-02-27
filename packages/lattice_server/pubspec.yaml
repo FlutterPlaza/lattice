@@ -1,7 +1,6 @@
 name: lattice_server
 description: Post-quantum Signal key distribution server for the Lattice protocol.
 version: 0.1.0
-publish_to: none
 repository: https://github.com/flutterplaza/lattice/tree/main/packages/lattice_server
 
 environment:
@@ -10,10 +9,8 @@ environment:
 resolution: workspace
 
 dependencies:
-  lattice_crypto:
-    path: ../lattice_crypto
-  lattice_protocol:
-    path: ../lattice_protocol
+  lattice_crypto: ^0.1.0
+  lattice_protocol: ^0.1.0
   shelf: ^1.4.2
   shelf_router: ^1.1.4
   args: ^2.6.0

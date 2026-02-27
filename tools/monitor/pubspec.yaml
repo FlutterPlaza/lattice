@@ -1,7 +1,6 @@
 name: lattice_monitor
 description: Server health monitoring tool for the Lattice Signal server.
 version: 0.1.0
-publish_to: none
 repository: https://github.com/flutterplaza/lattice/tree/main/tools/monitor
 
 environment:
